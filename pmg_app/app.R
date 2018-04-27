@@ -10,32 +10,79 @@ ui <- fluidPage(
   #  tags$p('es un párrafo'),
     #tags$img(src='./images/coche.jpg', alt='mi coche', style='border: solid 1px green')
   #)
-  checkboxInput("myCheckbox",
-                label = "Choice A",
-                value = TRUE),
-  textOutput("myId"),
-  radioButtons(
-    'myRB',
-    'Elije un número',
-    choices = list(
-      'el numero 1' = 1,
-      'el numero 2' = 2,
-      'el numero 3' = 3
-    )
-  )
-
+  #checkboxInput("myCheckbox",
+  #              label = "Choice A",
+  #              value = TRUE),
+  #textOutput("myId"),
+  #radioButtons(
+  #  'myRB',
+  #  'Elije un número',
+  #  choices = list(
+  #    'el numero 1' = 1,
+  #    'el numero 2' = 2,
+  #    'el numero 3' = 3
+  #  )
+  #)
+  #textInput("nameValue", label = h("Text input"), value = "Enter text..."),
+  textInput('nameValue', 
+            label = 'Tu nombre', 
+            value = ''),
+  textOutput('nameTyped'),
+  uiOutput('control'),
+  uiOutput('message'),
+  uiOutput('kk'),
+  uiOutput('messageClass')
 )
 
 server <- function(input, output) {
-  output$myId <- renderText(
-    'hola caracola'
+  output$nameValue <- renderPrint({ input$nameValue })
+  output$nameTyped <- renderText(
+    paste('Hola, ', input$nameValue)
   )
-  output$myCheckbox <- renderText(
-    input$myCheckbox
+  output$control <- renderUI (
+    radioButtons(
+      'myRB',
+      'Elije un color',
+      choices = list(
+        'Rojo' = '#ff1a1a',
+        'Verde' = '#00cc44',
+        'Azul' = '#3399ff'
+      )
+    )
   )
-  output$myRB <- renderText(
-    input$myRB
+  output$kk <- renderUI (
+    radioButtons(
+      'myRBClass',
+      'Elije un color',
+      choices = list(
+        'Rojo' = 'text-danger',
+        'Verde' = 'text-sucess',
+        'Azul' = 'text-primary'
+      )
+    )
   )
+  
+  output$message <- renderUI(
+    span('Soy del color seleccionado ', 
+         style=paste('color:', input$myRB))
+  )
+  
+  output$controlClass <- renderUI(
+    span('Soy del color seleccionado ',
+         class= input$myRBClass)
+  )
+
+  output$messageClass <- renderUI(
+    span('Soy del color seleccionado ', 
+         class=input$myRBClass)
+  )
+  
+  #output$myCheckbox <- renderText(
+  #  input$myCheckbox
+  #)
+  #output$myRB <- renderText(
+  #  input$myRB
+  #)
 }
 
 #kaskjas
