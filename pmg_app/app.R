@@ -31,7 +31,12 @@ ui <- fluidPage(
   uiOutput('control'),
   uiOutput('message'),
   uiOutput('kk'),
-  uiOutput('messageClass')
+  uiOutput('messageClass'),
+  textInput('estilo', 
+            label = 'Indica un estilo', 
+            value = 'text-uppercase'),
+  uiOutput('textoConEstilo')
+  
 )
 
 server <- function(input, output) {
@@ -83,6 +88,13 @@ server <- function(input, output) {
   #output$myRB <- renderText(
   #  input$myRB
   #)
+  
+  output$estilo <- renderPrint({ input$estilo })
+  output$textoConEstilo <- renderUI(
+    span('tengo el estilo aplicado ', 
+         class=input$estilo)
+  )
+  
 }
 
 #kaskjas
