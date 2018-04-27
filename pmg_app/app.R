@@ -8,4 +8,5 @@ server <- function(input, output) {
   
 }
 
+#kaskjas
 shinyApp(ui, server)
