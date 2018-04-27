@@ -1,0 +1,12 @@
+name: pmg_app
+title: pmg_app
+username:
+account: pmargom
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 332209
+bundleId: 1343474
+url: https://pmargom.shinyapps.io/pmg_app/
+when: 1524845351.53528
+asMultiple: FALSE
+asStatic: FALSE
