@@ -11,6 +11,13 @@ ui <- fluidPage(
   
   tabsetPanel(
     tabPanel(
+      'Nombre',
+      htmlTemplate(
+        'vista.html',
+        nombre = 'pedro'
+      )
+    ),
+    tabPanel(
       'Formulario',
       fluidRow(
         column(
