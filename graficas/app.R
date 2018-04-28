@@ -12,18 +12,30 @@ ui <- fluidPage(
   tabsetPanel(
     tabPanel(
       'Formulario',
-      selectizeInput("listaValores",
-                     label = h3("Elije un valor"), 
-                     choices = c()),
-      
-      selectInput("tipo.accidente",
-                  label = h3("Elije un valor"),
-                  choices = c()),
-      dateRangeInput("fechas",
-                     label = h3("Rango de fechas"),
-                     start = '01/01/2018',
-                     format = 'dd/mm/yyyy',
-                     language = 'es'
+      fluidRow(
+        column(
+          4,
+          selectizeInput("listaValores",
+                         label = h3("Elije un valor"), 
+                         choices = c()
+                         )
+          ),
+        column(
+          4,
+          selectInput("tipo.accidente",
+                      label = h3("Elije un valor"),
+                      choices = c()
+                      )
+        ),
+        column(
+          4,
+          dateRangeInput("fechas",
+                         label = h3("Rango de fechas"),
+                         start = '01/01/2018',
+                         format = 'dd/mm/yyyy',
+                         language = 'es'
+          )
+        )
       )
     ),
     tabPanel(
