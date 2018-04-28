@@ -8,9 +8,14 @@ ui <- fluidPage(
   #dataTableOutput('tabla.prestamosData')
   
   numericInput(
-    inputId = 'umbral',
+    inputId = 'umbralDesde',
     label='Indica un umbral',
     value=0
+  ),
+  numericInput(
+    inputId = 'umbralHasta',
+    label='Indica un umbral',
+    value=30000
   ),
   
   tableOutput('tabla.prestamos')
@@ -27,7 +32,7 @@ server <- function(input, output) {
       sep=';'
     )
     #data
-    data[data$NÚMERO > input$umbral, ]
+    data[data$NÚMERO >= input$umbralDesde & data$NÚMERO <= input$umbralHasta, ]
   })
   
   # output$tabla.prestamosData <- renderDataTable({
