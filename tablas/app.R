@@ -7,33 +7,51 @@ ui <- fluidPage(
   #pintamos una tabla
   #dataTableOutput('tabla.prestamosData')
   
-  numericInput(
-    inputId = 'umbralDesde',
-    label='Indica un umbral',
-    value=0
-  ),
-  numericInput(
-    inputId = 'umbralHasta',
-    label='Indica un umbral',
-    value=30000
-  ),
+  # numericInput(
+  #   inputId = 'umbralDesde',
+  #   label='Indica un umbral',
+  #   value=0
+  # ),
+  # numericInput(
+  #   inputId = 'umbralHasta',
+  #   label='Indica un umbral',
+  #   value=30000
+  # ),
+  selectInput("listaValores",
+              label = h3("Elije un valor"), 
+              choices = c()),
   
-  tableOutput('tabla.prestamos')
+  #tableOutput('tabla.prestamos')
+  textOutput('trimestre.seleccionado')
   
 )
 
-server <- function(input, output) {
+server <- function(input, output, session) {
   
-  output$tabla.prestamos <- renderTable({
+  observe({
     data <- read.csv(
       file='biblioteca.csv',
       header=TRUE,
       fileEncoding = 'latin1',
       sep=';'
-    )
-    #data
-    data[data$NÚMERO >= input$umbralDesde & data$NÚMERO <= input$umbralHasta, ]
+    )    
+    updateSelectInput(session, 'listaValores', choices = data$PRÉSTAMOS)
   })
+  
+  output$trimestre.seleccionado <- renderText(
+    paste0('El trimestre seleccionado es: ', input$listaValores)
+  )
+  
+  # output$tabla.prestamos <- renderTable({
+  #   data <- read.csv(
+  #     file='biblioteca.csv',
+  #     header=TRUE,
+  #     fileEncoding = 'latin1',
+  #     sep=';'
+  #   )
+  #   #data
+  #   data[data$NÚMERO >= input$umbralDesde & data$NÚMERO <= input$umbralHasta, ]
+  # })
   
   # output$tabla.prestamosData <- renderDataTable({
   #   read.csv(
