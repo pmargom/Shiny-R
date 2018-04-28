@@ -27,20 +27,23 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
+
+  data <- read.csv(
+    file='biblioteca.csv',
+    header=TRUE,
+    fileEncoding = 'latin1',
+    sep=';'
+  )    
   
   observe({
-    data <- read.csv(
-      file='biblioteca.csv',
-      header=TRUE,
-      fileEncoding = 'latin1',
-      sep=';'
-    )    
     updateSelectInput(session, 'listaValores', choices = data$PRÉSTAMOS)
   })
   
-  output$trimestre.seleccionado <- renderText(
+  output$trimestre.seleccionado <- renderText({
     paste0('El trimestre seleccionado es: ', input$listaValores)
-  )
+    p()
+    data[data$PRÉSTAMOS == input$listaValores, ]$NÚMERO
+  })
   
   # output$tabla.prestamos <- renderTable({
   #   data <- read.csv(
