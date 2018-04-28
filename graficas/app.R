@@ -7,27 +7,31 @@ ui <- fluidPage(
   #             label = h3("Elije un valor"), 
   #             choices = c())
   
-  selectizeInput("listaValores",
-                 label = h3("Elije un valor"), 
-                 choices = c()),
-  
-  selectInput("tipo.accidente",
-              label = h3("Elije un valor"),
-              choices = c()),
-
-  
   #plotOutput('histograma'),
   
-  dateRangeInput("fechas",
-                 label = h3("Rango de fechas"),
-                 start = '01/01/2018',
-                 format = 'dd/mm/yyyy',
-                 language = 'es'
-  ),
+  tabsetPanel(
+    tabPanel(
+      'Formulario',
+      selectizeInput("listaValores",
+                     label = h3("Elije un valor"), 
+                     choices = c()),
+      
+      selectInput("tipo.accidente",
+                  label = h3("Elije un valor"),
+                  choices = c()),
+      dateRangeInput("fechas",
+                     label = h3("Rango de fechas"),
+                     start = '01/01/2018',
+                     format = 'dd/mm/yyyy',
+                     language = 'es'
+      )
+    ),
+    tabPanel(
+      'Datos',
+      tableOutput('table.accidentes')
+    )
+  )
 
-  tableOutput('table.accidentes')
-  
-  
 )
 
 server <- function(input, output, session) {
